@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Israt — Today Is Your Exam</title>
+  <meta name="description" content="A loving, safe, exam‑morning pocket from Shihan to Israt: calm breathing, countdown for today, an affectionate letter, and a gentle checklist." />
+  <meta name="theme-color" content="#8a7cff">
+  <style>
+    :root{
+      --bg1:#0f0c29; --bg2:#302b63; --bg3:#24243e; /* night gradient */
+      --card:#111325; --text:#f6f7ff; --muted:#cfd2ff; --accent:#a996ff; --soft:#8a7cff;
+      --glass: rgba(255,255,255,.06); --glass-border: rgba(255,255,255,.14);
+      --ok:#9CFFAC; --gold:#ffe28a; --rose:#ffb3c7; --sky:#a7f0ff;
+    }
+    [data-theme="day"]{
+      --bg1:#e6f0ff; --bg2:#fff8ff; --bg3:#f1f5ff; /* day gradient */
+      --card:#ffffff; --text:#1c2340; --muted:#4a4e72; --accent:#5b43ff; --soft:#5b43ff;
+      --glass: rgba(0,0,0,.04); --glass-border: rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); background: linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+      background-size: 200% 200%; animation: bgShift 18s ease-in-out infinite;
+    }
+    @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .wrap{max-width:1100px; margin:0 auto; padding:clamp(16px,3vw,32px);}    
+    header{display:flex;gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:42px;height:42px;border-radius:12px; background:radial-gradient(circle at 30% 30%, var(--soft), transparent 60%),
+      linear-gradient(135deg, var(--glass), transparent 40%), linear-gradient(135deg,#0000, #0002);
+      border:1px solid var(--glass-border); box-shadow:0 10px 30px #0003; position:relative}
+    .logo:after{content:"✦"; position:absolute; right:-8px; top:-10px; font-size:18px; color:var(--gold); filter:drop-shadow(0 2px 6px #0006)}
+    h1{margin:0; font-size:clamp(22px,3vw,32px); letter-spacing:.2px}
+    .pill{border:1px solid var(--glass-border); background:var(--glass); padding:10px 14px; border-radius:999px}
+    .row{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:20px}
+    .card{background:var(--glass); border:1px solid var(--glass-border); border-radius:18px; padding:18px 18px; box-shadow:0 10px 30px #0005}
+    .card h2{margin:.2rem 0 0.8rem; font-size:clamp(18px,2.4vw,24px)}
+    .lead{font-size:clamp(16px,1.8vw,18px); color:var(--muted); line-height:1.55}
+
+    /* Countdown */
+    .countdown{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+    .tick{min-width:84px; padding:12px 10px; text-align:center; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid var(--glass-border)}
+    .tick b{display:block; font-size:28px; letter-spacing:.5px}
+    .tick small{opacity:.8}
+
+    /* Letter */
+    .letter{position:relative; border-radius:18px; overflow:hidden; background:
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid var(--glass-border);}    
+    .seal{position:absolute; right:18px; top:-22px; width:76px;height:76px; background:radial-gradient(circle at 30% 30%, #ff7aa8, #b03060 70%);
+      border-radius:999px; border:2px dashed #ffffff88; display:grid; place-items:center; color:#fff; font-weight:700; transform:rotate(8deg); cursor:pointer;
+      box-shadow:0 10px 30px #0005}
+    .seal:hover{transform:rotate(0deg) scale(1.05)}
+    .paper{padding:22px 20px 26px; filter:blur(0); transition:filter .5s ease}
+    .paper.locked{filter:blur(5px)}
+    .type{font-size:clamp(18px,2.2vw,22px); line-height:1.65}
+
+    /* Breathing */
+    .breathWrap{display:grid; grid-template-columns:120px 1fr; align-items:center; gap:16px}
+    .circle{width:120px;height:120px;border-radius:999px;border:2px solid var(--soft); display:grid; place-items:center; position:relative}
+    .dot{position:absolute; width:10px; height:10px; background:var(--gold); border-radius:999px; left:50%; top:2px; transform-origin: -2px 58px;}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    .prompt{font-weight:600; letter-spacing:.3px}
+
+    /* Checklist */
+    .list{display:grid; gap:10px; margin-top:6px}
+    .item{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; background:rgba(255,255,255,.06); border:1px solid var(--glass-border)}
+    .item input{margin-top:3px}
+
+    /* Deck */
+    .deck{display:grid; gap:12px;}
+    .quote{font-size:clamp(16px,2vw,20px); line-height:1.6; padding:14px; border-radius:14px; border:1px dashed var(--glass-border); background:rgba(255,255,255,.06)}
+
+    /* Buttons */
+    button{appearance:none; border:none; padding:12px 16px; border-radius:12px; background:linear-gradient(135deg, var(--soft), #c6bfff);
+      color:#fff; font-weight:700; letter-spacing:.4px; cursor:pointer; box-shadow:0 8px 24px #0005;}
+    button.ghost{background:transparent; color:var(--text); border:1px solid var(--glass-border); box-shadow:none}
+
+    footer{margin:26px 0 10px; opacity:.85; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
+    .tiny{font-size:12px; opacity:.8}
+
+    /* Confetti */
+    .confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden}
+    .confetti i{position:absolute; width:10px; height:14px; opacity:.95; border-radius:3px}
+
+    /* Morning gate */
+    .gate{display:none; position:fixed; inset:0; backdrop-filter: blur(6px); background: rgba(0,0,0,.4); align-items:center; justify-content:center; text-align:center; padding:24px;}
+    .gate .panel{max-width:680px; background:var(--card); border:1px solid var(--glass-border); border-radius:18px; padding:22px; box-shadow:0 10px 30px #0007}
+
+    /* Responsive */
+    @media (max-width: 920px){ .row{grid-template-columns:1fr} .breathWrap{grid-template-columns:1fr} .circle{margin-inline:auto}}
+  </style>
+</head>
+<body>
+  <div class="confetti" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>For Israt — Today Is Your Exam</h1>
+          <div class="pill">A safe morning pocket • from Shihan (I’m right here)</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="ghost" id="themeBtn" title="Toggle day / night">Toggle Theme</button>
+        <button id="confettiBtn" title="Celebrate">Good Luck ✨</button>
+      </div>
+    </header>
+
+    <section class="row" aria-label="hero">
+      <div class="card letter">
+        <div class="seal" id="seal">OPEN 🤍</div>
+        <h2>My Letter to You</h2>
+        <p class="lead">Read this slowly, love. Let each line land like a warm hand between your shoulders. You’re safe with me.</p>
+        <div id="paper" class="paper locked">
+          <div class="type" id="type"></div>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:8px">
+          <button id="retype" class="ghost">Replay typing</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Countdown to Today’s Exam</h2>
+        <p class="lead">Default set to <b>9:00 AM today</b> (your device time). Adjust if you need.</p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:6px 0 8px">
+          <input id="time" type="datetime-local" aria-label="Exam time" style="padding:10px;border-radius:10px;border:1px solid var(--glass-border); background:var(--glass); color:var(--text)">
+          <button id="setTime">Set Time</button>
+        </div>
+        <div class="countdown" id="countdown" aria-live="polite"></div>
+        <p id="afterMsg" class="lead" style="display:none; margin-top:10px"><b>It’s time.</b> Take one soft breath. Your mind is bright, your hand is steady. Begin — I’m with you, quietly and always.</p>
+      </div>
+    </section>
+
+    <section class="row" style="margin-top:18px">
+      <div class="card">
+        <h2>One‑Minute Calm</h2>
+        <div class="breathWrap">
+          <div class="circle">
+            <div class="dot" id="dot"></div>
+            <div id="beat" style="font-weight:800">4</div>
+          </div>
+          <div>
+            <div class="prompt" id="phase">Inhale</div>
+            <p class="lead">Imagine my hand in yours. Inhale for 4, hold for 4, exhale for 6. Repeat for a minute. Your body learns safety from rhythm.</p>
+            <div style="display:flex; gap:8px; margin-top:6px">
+              <button id="breathStart">Start</button>
+              <button id="breathStop" class="ghost">Stop</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Exam‑Morning Checklist</h2>
+        <div class="list" id="list"></div>
+        <div style="display:flex; gap:8px; margin-top:10px">
+          <button id="resetList" class="ghost">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="row" style="margin-top:18px">
+      <div class="card">
+        <h2>Words to Carry</h2>
+        <div class="deck">
+          <div class="quote" id="quote"></div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <button id="nextQuote">Another one</button>
+            <button id="copyQuote" class="ghost">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Mini Rituals</h2>
+        <p class="lead">Two tiny scripts. Smile a little while doing them — I’ll smile back.</p>
+        <div class="list">
+          <div class="item"><input type="checkbox" id="night1"><label for="night1"><b>Right‑Before (2 mins):</b> ID + admit slip, pens, water. Read the first question twice. Decide your first sentence. </label></div>
+          <div class="item"><input type="checkbox" id="night2"><label for="night2"><b>At Your Seat (90 sec):</b> Shoulders soft. Three slow breaths. Whisper: “Calm body • Bright mind • Steady hand.” Then begin.
+          </label></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="tiny">Made with care by Shihan • May your pen feel weightless, Israt.</div>
+      <div class="tiny">Tip: Add this page to Home Screen for quick magic.</div>
+    </footer>
+  </div>
+
+  <!-- Morning gate (soft limit to morning hours) -->
+  <div class="gate" id="gate" role="dialog" aria-live="polite">
+    <div class="panel">
+      <h2 style="margin-top:0">Morning Window</h2>
+      <p class="lead">This pocket works best in the morning. If it’s not morning where you are, you can still use it — but promise me a good rest after. ♡</p>
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:10px">
+        <button id="useNow">Use Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // THEME
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){ document.body.setAttribute('data-theme', savedTheme); }
+    themeBtn.onclick = () => {
+      const cur = document.body.getAttribute('data-theme') === 'day' ? 'night' : 'day';
+      document.body.setAttribute('data-theme', cur);
+      localStorage.setItem('theme', cur);
+    }
+
+    // LETTER (typewriter) — more affectionate & safe
+    const letter = [
+      "Good morning, Israt. Before anything else: you are safe with me. I’m right here, quiet and close.",
+      "Greatness doesn’t need trumpets — it arrives when you show up for one honest line. You already did the brave part by choosing to try.",
+      "If a doubt taps the window, let it wait outside. In here, we keep a small steady fire. I’ll guard it while you write.",
+      "Breathe as if the answers live in your chest. They do. Your mind is bright; your hand knows what to do.",
+      "If any moment feels heavy, place your palm flat on the desk and remember: I believe in you — fiercely and gently — and I’m not letting go."
+    ];
+    const typeBox = document.getElementById('type');
+    const paper = document.getElementById('paper');
+    const seal = document.getElementById('seal');
+    const retype = document.getElementById('retype');
+    let typing;
+    function typeLines(lines){
+      clearInterval(typing);
+      typeBox.textContent = '';
+      let i=0, lIndex=0;
+      function nextChar(){
+        if(lIndex >= lines.length){ clearInterval(typing); return; }
+        const line = lines[lIndex] + (i===0?"\n\n":" ");
+        typeBox.textContent += line[i];
+        i++;
+        if(i >= line.length){ i=0; lIndex++; }
+      }
+      typing = setInterval(nextChar, 24);
+    }
+    seal.addEventListener('click', ()=>{ paper.classList.remove('locked'); typeLines(letter); dropConfetti(120); });
+    retype.addEventListener('click', ()=> typeLines(letter));
+
+    // COUNTDOWN — default to TODAY 09:00
+    const countdownEl = document.getElementById('countdown');
+    const timeEl = document.getElementById('time');
+    const afterMsg = document.getElementById('afterMsg');
+    const setTimeBtn = document.getElementById('setTime');
+
+    function defaultExamTime(){
+      const now = new Date();
+      const t = new Date();
+      t.setHours(9,0,0,0); // 09:00 today
+      // If already past 09:00, nudge to the next top-of-hour today
+      if(t - now <= 0){
+        const n = new Date();
+        n.setMinutes(n.getMinutes() < 30 ? 30 : 60, 0, 0);
+        return n;
+      }
+      return t;
+    }
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function renderCountdown(t){
+      const now = new Date();
+      const ms = t - now;
+      countdownEl.innerHTML='';
+      if(ms <= 0){ afterMsg.style.display='block'; return; }
+      const s = Math.floor(ms/1000);
+      const hours = Math.floor(s/3600);
+      const mins = Math.floor((s%3600)/60);
+      const secs = s%60;
+      const parts = [ ['Hours', hours], ['Minutes', mins], ['Seconds', secs] ];
+      parts.forEach(([label,val])=>{
+        const d=document.createElement('div'); d.className='tick';
+        d.innerHTML = `<b>${pad(val)}</b><small>${label}</small>`; countdownEl.appendChild(d);
+      });
+    }
+    const stored = localStorage.getItem('examTime');
+    const initial = stored? new Date(stored) : defaultExamTime();
+    timeEl.value = new Date(initial.getTime()-initial.getTimezoneOffset()*60000).toISOString().slice(0,16);
+
+    let targetTime = initial;
+    let timer = setInterval(()=>renderCountdown(targetTime), 1000);
+    renderCountdown(targetTime);
+
+    setTimeBtn.onclick = ()=>{
+      const v = timeEl.value; if(!v) return;
+      const t = new Date(v);
+      targetTime = t;
+      localStorage.setItem('examTime', t.toISOString());
+      renderCountdown(targetTime);
+      dropConfetti(60);
+    }
+
+    // BREATHING
+    const beat = document.getElementById('beat');
+    const phase = document.getElementById('phase');
+    const dot = document.getElementById('dot');
+    const breathStart = document.getElementById('breathStart');
+    const breathStop = document.getElementById('breathStop');
+    let breathTimer, orbit, angle=0;
+
+    function startBreath(){
+      clearInterval(breathTimer); cancelAnimationFrame(orbit);
+      let seq = [ ['Inhale',4], ['Hold',4], ['Exhale',6] ];
+      let idx = 0, count = seq[idx][1]; phase.textContent = seq[idx][0]; beat.textContent = count;
+      function tick(){
+        count--; beat.textContent = count;
+        if(count <= 0){ idx = (idx+1)%seq.length; phase.textContent = seq[idx][0]; count = seq[idx][1]; beat.textContent = count; }
+      }
+      breathTimer = setInterval(tick, 1000);
+      function spin(){ angle += 360/( (seq[0][1]+seq[1][1]+seq[2][1]) ); dot.style.transform = `rotate(${angle}deg)`; orbit=requestAnimationFrame(spin) }
+      spin();
+    }
+    function stopBreath(){ clearInterval(breathTimer); cancelAnimationFrame(orbit); beat.textContent='4'; phase.textContent='Inhale'; }
+    breathStart.onclick = startBreath; breathStop.onclick = stopBreath;
+
+    // CHECKLIST — softer, loving tone
+    const listEl = document.getElementById('list');
+    const resetList = document.getElementById('resetList');
+    const tasks = [
+      'ID card + admit slip (I’ll double‑check with you)',
+      'Two favorite pens + one calm pencil',
+      'Water bottle (half full — gentle sips)',
+      'Watch/timer if allowed',
+      'Quick scan: key formulas or outline (2 minutes only)',
+      'Bathroom break before you enter',
+      'At your seat: 3 slow breaths — shoulders soft',
+      'Mantra: “Calm body • Bright mind • Steady hand”'
+    ];
+
+    function renderList(){
+      listEl.innerHTML='';
+      const done = JSON.parse(localStorage.getItem('taskDone')||'{}');
+      tasks.forEach((t,i)=>{
+        const id = 't'+i; const wrap = document.createElement('div'); wrap.className='item';
+        wrap.innerHTML = `<input type="checkbox" id="${id}" ${done[id]? 'checked':''}><label for="${id}">${t}</label>`;
+        wrap.querySelector('input').addEventListener('change', (e)=>{
+          const map = JSON.parse(localStorage.getItem('taskDone')||'{}');
+          map[id] = e.target.checked; localStorage.setItem('taskDone', JSON.stringify(map));
+        });
+        listEl.appendChild(wrap);
+      });
+    }
+    resetList.onclick = ()=>{ localStorage.removeItem('taskDone'); renderList(); }
+    renderList();
+
+    // QUOTE DECK — warmer lines
+    const quotes = [
+      'Israt, I’m proud of the way you keep going.',
+      'You don’t need permission to be brilliant; you only need the next line.',
+      'Let doubts wait by the door — we are busy.',
+      'Read the question twice; your calm is a secret weapon.',
+      'You are allowed to surprise yourself today.',
+      'I’ll hold the edges of your focus while you write.',
+      'Grace under pressure looks exactly like you breathing.',
+      'Answers arrive for people who stay. You stay.',
+      'Your best thinking loves a slow first minute.',
+      'I’m right here, quietly cheering for you.'
+    ];
+    const quote = document.getElementById('quote');
+    const nextQuote = document.getElementById('nextQuote');
+    const copyQuote = document.getElementById('copyQuote');
+    function pick(){ return quotes[Math.floor(Math.random()*quotes.length)]; }
+    function showQuote(){ quote.textContent = pick(); }
+    nextQuote.onclick = showQuote; copyQuote.onclick = async()=>{
+      try{ await navigator.clipboard.writeText(quote.textContent); copyQuote.textContent='Copied!'; setTimeout(()=>copyQuote.textContent='Copy',1000);}catch(e){}
+    }
+    showQuote();
+
+    // CONFETTI
+    const confettiBtn = document.getElementById('confettiBtn');
+    const conf = document.querySelector('.confetti');
+    confettiBtn.onclick = ()=> dropConfetti(120);
+    function dropConfetti(n){
+      for(let i=0;i<n;i++){
+        const e=document.createElement('i');
+        const x = Math.random()*100; const delay = Math.random()*0.2; const dur = 3+Math.random()*2;
+        e.style.left = x+'%'; e.style.top = '-10px';
+        const colors = ['#ffd166','#06d6a0','#118ab2','#ef476f','#a996ff','#ffb3c7','#9CFFAC','#a7f0ff'];
+        e.style.background = colors[i%colors.length];
+        e.animate([
+          { transform:`translateY(-10px) rotate(0deg)`, opacity: 1 },
+          { transform:`translateY(110vh) rotate(${Math.random()*720-360}deg)`, opacity: 1 }
+        ], { duration: dur*1000, delay: delay*1000, easing: 'cubic-bezier(.2,.7,.2,1)', fill:'forwards' });
+        conf.appendChild(e); setTimeout(()=> e.remove(), (dur+delay)*1000+200);
+      }
+    }
+
+    // MORNING GATE (soft)
+    (function(){
+      const gate = document.getElementById('gate');
+      const btn = document.getElementById('useNow');
+      const hour = new Date().getHours();
+      if(!(hour >= 4 && hour <= 12)){
+        gate.style.display = 'flex';
+      }
+      btn && (btn.onclick = ()=>{ gate.style.display='none'; });
+    })();
+  </script>
+</body>
+</html>
