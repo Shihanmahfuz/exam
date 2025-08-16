@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>For Israt — Today Is Your Exam</title>
-  <meta name="description" content="A loving, safe, exam‑morning pocket from Shihan to Israt: calm breathing, countdown for today, an affectionate letter, and a gentle checklist." />
+  <title>For Israt, Today Is Your Exam</title>
+  <meta name="description" content="An exam‑morning pocket from Shihan to Israt" />
   <meta name="theme-color" content="#8a7cff">
   <style>
     :root{
@@ -102,7 +102,7 @@
         <div class="logo"></div>
         <div>
           <h1>For Israt — Today Is Your Exam</h1>
-          <div class="pill">A safe morning pocket • from Shihan (I’m right here)</div>
+          <div class="pill">A morning pocket • from Shihan (I’m right here)</div>
         </div>
       </div>
       <div style="display:flex; gap:8px; align-items:center;">
@@ -115,7 +115,7 @@
       <div class="card letter">
         <div class="seal" id="seal">OPEN 🤍</div>
         <h2>My Letter to You</h2>
-        <p class="lead">Read this slowly, love. Let each line land like a warm hand between your shoulders. You’re safe with me.</p>
+        <p class="lead">Read this slowly, honey. Let each line land like a warm hand between your shoulders. You are with me, sweetheart.</p>
         <div id="paper" class="paper locked">
           <div class="type" id="type"></div>
         </div>
@@ -138,7 +138,7 @@
 
     <section class="row" style="margin-top:18px">
       <div class="card">
-        <h2>One‑Minute Calm</h2>
+        <h2>One Minute Calm</h2>
         <div class="breathWrap">
           <div class="circle">
             <div class="dot" id="dot"></div>
@@ -156,7 +156,7 @@
       </div>
 
       <div class="card">
-        <h2>Exam‑Morning Checklist</h2>
+        <h2>Exam Morning Checklist</h2>
         <div class="list" id="list"></div>
         <div style="display:flex; gap:8px; margin-top:10px">
           <button id="resetList" class="ghost">Reset</button>
@@ -178,7 +178,7 @@
 
       <div class="card">
         <h2>Mini Rituals</h2>
-        <p class="lead">Two tiny scripts. Smile a little while doing them — I’ll smile back.</p>
+        <p class="lead">Two tiny scripts. Smile a little while doing them, I’ll smile back.</p>
         <div class="list">
           <div class="item"><input type="checkbox" id="night1"><label for="night1"><b>Right‑Before (2 mins):</b> ID + admit slip, pens, water. Read the first question twice. Decide your first sentence. </label></div>
           <div class="item"><input type="checkbox" id="night2"><label for="night2"><b>At Your Seat (90 sec):</b> Shoulders soft. Three slow breaths. Whisper: “Calm body • Bright mind • Steady hand.” Then begin.
@@ -197,7 +197,7 @@
   <div class="gate" id="gate" role="dialog" aria-live="polite">
     <div class="panel">
       <h2 style="margin-top:0">Morning Window</h2>
-      <p class="lead">This pocket works best in the morning. If it’s not morning where you are, you can still use it — but promise me a good rest after. ♡</p>
+      <p class="lead">This pocket works best in the morning. If it’s not morning where you are, you can still use it, but promise me a good rest after. ♡</p>
       <div style="display:flex; gap:8px; justify-content:center; margin-top:10px">
         <button id="useNow">Use Now</button>
       </div>
@@ -218,10 +218,10 @@
     // LETTER (typewriter) — more affectionate & safe
     const letter = [
       "Good morning, Israt. Before anything else: you are safe with me. I’m right here, quiet and close.",
-      "Greatness doesn’t need trumpets — it arrives when you show up for one honest line. You already did the brave part by choosing to try.",
+      "Greatness doesn’t need trumpets, it arrives when you show up for one honest line. You already did the brave part by choosing to try.",
       "If a doubt taps the window, let it wait outside. In here, we keep a small steady fire. I’ll guard it while you write.",
       "Breathe as if the answers live in your chest. They do. Your mind is bright; your hand knows what to do.",
-      "If any moment feels heavy, place your palm flat on the desk and remember: I believe in you — fiercely and gently — and I’m not letting go."
+      "If any moment feels heavy, place your palm flat on the desk and remember: I believe in you, fiercely and gently, and I’m not letting go."
     ];
     const typeBox = document.getElementById('type');
     const paper = document.getElementById('paper');
@@ -328,7 +328,7 @@
       'Watch/timer if allowed',
       'Quick scan: key formulas or outline (2 minutes only)',
       'Bathroom break before you enter',
-      'At your seat: 3 slow breaths — shoulders soft',
+      'At your seat: 3 slow breaths, shoulders soft',
       'Mantra: “Calm body • Bright mind • Steady hand”'
     ];
 
@@ -352,7 +352,7 @@
     const quotes = [
       'Israt, I’m proud of the way you keep going.',
       'You don’t need permission to be brilliant; you only need the next line.',
-      'Let doubts wait by the door — we are busy.',
+      'Let doubts wait by the door, we are busy.',
       'Read the question twice; your calm is a secret weapon.',
       'You are allowed to surprise yourself today.',
       'I’ll hold the edges of your focus while you write.',
